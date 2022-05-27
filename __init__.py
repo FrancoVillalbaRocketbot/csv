@@ -35,9 +35,11 @@ import csv
 def csv_read(path, encoding):
     import csv
     delimiter = GetParams("delimiter")
-    csv_result = []
     if not delimiter:
         delimiter = ","
+    if delimiter == "\\t":
+        delimiter = "\t"
+    csv_result = []
     with open(path, "r", encoding=encoding, ) as csv_file:
         data = csv_file.read()
         csv_file.close()
@@ -63,9 +65,6 @@ if module == "read":
 
     if not delimiter:
         delimiter = ","
-          
-    if delimiter == "\\t":
-        delimiter = "\t"
 
     if not encoding:
         encoding = "utf-8"
@@ -115,10 +114,6 @@ if module == "csvToxlsx":
 
     if not delimiter:
         delimiter = ","
-          
-    if delimiter == "\\t":
-        delimiter = "\t"
-
     if not encoding:
         encoding = "utf-8"
     try:
@@ -131,6 +126,7 @@ if module == "csvToxlsx":
             book.close()
             app.quit()
         except:
+            
             PrintException()
             app = openpyxl.Workbook()
             sheet = app.active
@@ -141,6 +137,7 @@ if module == "csvToxlsx":
             app.close()
 
     except Exception as e:
+        
         print("\x1B[" + "31;40m" + str(e) + "\x1B[" + "0m")
         PrintException()
         raise e
