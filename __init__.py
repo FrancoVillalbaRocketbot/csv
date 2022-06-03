@@ -35,13 +35,26 @@ import csv
 def csv_read(path, encoding):
     import csv
     delimiter = GetParams("delimiter")
+    with open(path, "r", encoding=encoding, ) as csv_file:
+        data = csv_file.read()
+        if delimiter != '' and delimiter not in data:
+            raise Exception("Delimiter not found")
+        csv_file.close()
     if not delimiter:
         delimiter = ","
     if delimiter == "\\t":
         delimiter = "\t"
     csv_result = []
+    if '\0' in open(path).read():
+        fi = open(path, "rb")
+        data = fi.read()
+        fi.close()
+        fo = open(path, "wb")
+        fo.write(data.replace(b'\0', b''))
+        fo.close()
     with open(path, "r", encoding=encoding, ) as csv_file:
         data = csv_file.read()
+        print(data)
         csv_file.close()
     if (data.startswith(("'","\""))):
         with open(path, "w", encoding=encoding, ) as csv_file:
@@ -87,6 +100,8 @@ if module == "export":
     try:
         if not delimiter:
             delimiter = ","
+        if delimiter == "\\t":
+            delimiter = "\t"
         data = eval(data)
 
         if type(data[0]) is tuple:
@@ -126,7 +141,6 @@ if module == "csvToxlsx":
             book.close()
             app.quit()
         except:
-            
             PrintException()
             app = openpyxl.Workbook()
             sheet = app.active

@@ -174,9 +174,9 @@
           {
             "type": "input",
             "placeholder": {
-              "es": "[[data, data], [data, data]]",
-              "en": "[[data, data], [data, data]]",
-              "pr": "[[data, data], [data, data]]"
+              "es": "[['data', 'data'], ['data', 'data']]",
+              "en": "[['data', 'data'], ['data', 'data']]",
+              "pr": "[['data', 'data'], ['data', 'data']]"
             },
             "title": {
               "es": "Dato a exportar:",
@@ -209,7 +209,7 @@
               "pr": "Delimitador de campos"
             },
             "id": "delimiter",
-            "css": "col-md-1"
+            "css": "col-md-2"
           },
           {
             "type": "file_new",
